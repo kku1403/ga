@@ -11,3 +11,12 @@ jobs:
         run: echo "Hi"
       - name: sayMyName
         run: echo "${{ github.actor }}"
+  hello2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sayHi
+        run: echo "Hi"
+      - name: Wait for 20 seconds
+        run: sleep 20  # 20초 대기
+      - name: sayMyName
+        run: echo "${{ github.actor }}"
