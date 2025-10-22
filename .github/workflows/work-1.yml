@@ -11,6 +11,10 @@ jobs:
         run: echo "Hi"
       - name: sayMyName
         run: echo "${{ github.actor }}"
+      - uses: actions/checkout@v4 # 공식 액션 - actions로 시작
+      - uses: mathieudutour/github-tag-action@v6.2 # 비공식 액션
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
   hello2:
     runs-on: ubuntu-latest
     steps:
