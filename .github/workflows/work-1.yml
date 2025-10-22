@@ -1,6 +1,12 @@
 name: work-1
 on:
   push:
+    paths: # 아래 파일 중 하나가 변경되어야 작동
+      - '.github/workflows/**'
+      - 'src/**'
+      - 'build.gradle'
+      - 'build.gradle.kts'
+      - 'Dockerfile'
     branches:
       - main
 jobs:
@@ -11,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4 
       # 태그 생성
       - name: Create Tag 
-        id: create_tag
+        id: create_tag # outputs(new_tag, changelog 등)
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -22,7 +28,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.create_tag.outputs.new_tag }}
+          tag_name: ${{ steps.create_tag.outputs.new_tag }} # 전 단계(id: create_tag)에서 생성된 new_tag
           release_name: Release ${{ steps.create_tag.outputs.new_tag }}
           body: ${{ steps.create_tag.outputs.changelog }}
           draft: false
